@@ -8,59 +8,73 @@
         <link rel="stylesheet" href="styles.css">
     </head>
 <body id="body">
-    <header>
-        <h2>POLL APP</h2>
-        <p>Welcome to Poll App where you decide what should win!</p>
-    </header>
+  <header>
+      <h2>POLL APP</h2>
+      <p>Welcome to Poll App where you decide what should win!</p>
+  </header>
+<!-- possible menu -->
+  <div class="ui menu">
+      <a class="header item">
+        Create a Poll!
+      </a>
+      <a class="item">
+        Peruse the Polls 
+      </a>
+      <a class="item">
+        Random Poll
+      </a>
+      <a class="item">
+        About Us!
+      </a>
+  </div>
+  
+  <br>
+  <div class="container">
+    <form class="add-user-form">
+      <h3>What's your email address?</h3>
 
-    <div class="ui menu">
-        <div class="header item">
-          Create a Poll
-        </div>
-        <a class="item">
-          Peruse the Polls 
-        </a>
-        <a class="item">
-          Random Poll
-        </a>
-        <a class="item">
-          About Us!
-        </a>
+      <input
+        type="text"
+        name="user_email"
+        value=""
+        placeholder="Enter your email address here to vote!"
+        class="input-text"
+      />
+      <br />
+      <input
+        type="submit"
+        name="submit"
+        value="Start voting!"
+        class="submit"
+      />
+    </form>
+  </div>
+
+<!-- possible grid -->
+    <main class="main">
+      <!-- sample of html to use when fetching polls -->
+      <div class="poll-card">
+      <h1 class="poll-title">What's the best aide?</h1>
+      <br>
+      <div class="ui vertically divided grid">
+          <div class="two column row">
+            <div class="column">
+              <p>Option #1</p>
+              <h2 class="option-one">Cool Aide</h2>
+              <button class="ui button">VOTE</button>
+            </div>
+            <div class="column">
+              <p>Option #2</p>
+              <h2 class="option-two">Flavor Aide</h2>
+              <button class="ui button">VOTE</button>
+            </div>
+          </div>
       </div>
+    </div>
 
 
-
-
-
-    <button class="ui button">VOTE</button>
-
-        <main>
-            <div class="ui vertically divided grid">
-                <div class="two column row">
-                  <div class="column">
-                    <p>One</p>
-                  </div>
-                  <div class="column">
-                    <p>Two</p>
-                  </div>
-                </div>
-                <div class="three column row">
-                  <div class="column">
-                    <p>Three</p>
-                  </div>
-                  <div class="column">
-                    <p>Four</p>
-                  </div>
-                  <div class="column">
-                    <p>Five</p>
-                  </div>
-                </div>
-              </div>
-
-
-        
-        
-        </main>
+      
+    </main>
     
 
     <script src="./src/index.js" defer></script>
