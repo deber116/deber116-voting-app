@@ -29,48 +29,50 @@
   </div>
   
   <br>
-  <div class="container">
-    <form class="add-user-form">
-      <h3>What's your email address?</h3>
-
-      <input
-        type="text"
-        name="user_email"
-        value=""
-        placeholder="Enter your email address here to vote!"
-        class="input-text"
-      />
-      <br />
-      <input
-        type="submit"
-        name="submit"
-        value="Start voting!"
-        class="submit"
-      />
-    </form>
+  <div class="user-container">
+    <div class="ui large form">
+      <form class="add-user-form">
+        <h3>Sign in!</h3>
+        <input
+          type="text"
+          name="user_email"
+          value=""
+          placeholder="Enter Email Address"
+          class="field"
+        />
+      <br>
+      <br>
+        <input
+          type="submit"
+          name="submit"
+          value="Start voting!"
+          class="ui button submit"
+        />
+      </form>
+    </div>
   </div>
 
 <!-- possible grid -->
     <main class="main">
       <!-- sample of html to use when fetching polls -->
       <div class="poll-card">
-      <h1 class="poll-title">What's the best aide?</h1>
-      <br>
-      <div class="ui vertically divided grid">
-          <div class="two column row">
-            <div class="column">
-              <p>Option #1</p>
-              <h2 class="option-one">Cool Aide</h2>
-              <button class="ui button">VOTE</button>
+        <h1 class="poll-title">What's the best aide?</h1>
+        <br>
+        <div class="ui vertically divided grid">
+            <div class="two column row">
+              <div class="column">
+                <p>Option #1</p>
+                <h2 class="option-one">Cool Aide</h2>
+                <button class="ui button">VOTE</button>
+              </div>
+              <div class="column">
+                <p>Option #2</p>
+                <h2 class="option-two">Flavor Aide</h2>
+                <button class="ui button">VOTE</button>
+              </div>
             </div>
-            <div class="column">
-              <p>Option #2</p>
-              <h2 class="option-two">Flavor Aide</h2>
-              <button class="ui button">VOTE</button>
-            </div>
-          </div>
+        </div>
       </div>
-    </div>
 
 
       

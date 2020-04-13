@@ -22,3 +22,15 @@
     padding: 10px;
 }
 
+.user-container {
+    background-color: white;
+    border-radius: 25px;
+    text-align: center;
+    width: 500px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+div {
+    padding: 20px;
+}
