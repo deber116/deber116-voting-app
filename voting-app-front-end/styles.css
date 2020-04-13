@@ -4,3 +4,18 @@
     margin: 25px 50px;
     background-color: #A0A0A0;
 }
+
+.two {
+    background-color: white;
+    border-radius: 25px;
+    padding: 20px;
+} 
+
+.poll-title {
+    background-color: white;
+    border-radius: 25px;
+    padding: 20px;
+    text-align: center;
+    width: 500px;
+    margin: 0 auto;
+}
