@@ -5,6 +5,8 @@
         <title>POLL APP</title>
         <link rel="icon" type="image/png" href="./images/bar-graph-favicon.png">
         <link rel="stylesheet" type="text/css" href="./Semantic-UI-CSS/semantic.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.3/dist/semantic.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.3/dist/semantic.min.js"></script>
         <link rel="stylesheet" href="styles.css">
     </head>
 <body id="body">
@@ -14,19 +16,59 @@
   </header>
 <!-- possible menu -->
   <div class="ui menu">
-      <a class="header item">
+      <a id="create-poll" class="header item">
         Create a Poll!
       </a>
       <a class="item">
-        Peruse the Polls 
+        View All Polls 
       </a>
       <a class="item">
-        Random Poll
+        My Polls
       </a>
       <a class="item">
         About Us!
       </a>
   </div>
+<!-- FORM FROM TOY TALE -->
+  <div id='poll-container' style="display: none;">
+    <div class="ui large form">
+      <form class="add-poll-form">
+       <h3>Create a Poll!</h3>
+
+      <input
+        type="text"
+        name="name"
+        value=""
+        placeholder="Enter a Poll Question"
+        class="input-text"
+      />
+      <br />
+      <input
+        type="text"
+        name="image"
+        value=""
+        placeholder="Option #1"
+        class="input-text"
+      />
+      <input
+        type="text"
+        name="image"
+        value=""
+        placeholder="Option #2"
+        class="input-text"
+      />
+      <br />
+      <input
+        type="submit"
+        name="submit"
+        value="Create New Poll"
+        class="ui button submit"
+      />
+      </form>
+    </div>
+  </div>
+  <!-- FORM FROM TOY TALE END -->
+
   
   <br>
   <div class="user-container">

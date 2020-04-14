@@ -3,6 +3,19 @@ const POLLS_URL = "http://localhost:3000/polls"
 
 let current_user;
 
+let addPoll = false;
+const createPollBtn = document.getElementById("create-poll");
+// const pollForm = document.getElementById("add-poll-form");
+const pollContainer = document.getElementById('poll-container');
+
+createPollBtn.addEventListener("click", () => {
+    addPoll = !addPoll;
+    if (addPoll) {
+        pollContainer.style.display = "block";
+    } else {
+        pollContainer.style.display = "none";
+    }
+})
 
 const userForm = document.querySelector("form.add-user-form")
 
