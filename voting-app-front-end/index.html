@@ -17,7 +17,7 @@
       <p>Welcome to Poll App where you decide what should win!</p>
   </header>
 <!-- site menu -->
-  <div class="ui menu">
+  <div id="menu" class="ui menu">
       <a id="create-poll" class="header item">
         Create a Poll!
       </a>
@@ -30,7 +30,12 @@
       <a class="item">
         About Us!
       </a>
-  </div>
+    </div>
+    <div class="right menu" >
+        <a class="item">
+          Logout
+        </a>
+    </div>
 
   <!-- drop down create poll form -->
   <div id='poll-container' style="display: none;">
@@ -48,14 +53,14 @@
       <br>
       <input
         type="text"
-        name="optionOne"
+        name="option-one"
         value=""
         placeholder="Option #1"
         class="input-text"
       />
       <input
         type="text"
-        name="optionTwo"
+        name="option-two"
         value=""
         placeholder="Option #2"
         class="input-text"
@@ -97,30 +102,9 @@
     </div>
   </div>
 
-<!-- possible grid -->
-    <main class="main">
-      <!-- sample of html to use when fetching polls -->
-      <div class="poll-card">
-        <h1 class="poll-title">What's the best aide?</h1>
-        <br>
-        <div class="ui vertically divided grid">
-            <div class="two column row">
-              <div class="column">
-                <p>Option #1</p>
-                <h2 class="option-one">Cool Aide</h2>
-                <button class="ui button">VOTE</button>
-              </div>
-              <div class="column">
-                <p>Option #2</p>
-                <h2 class="option-two">Flavor Aide</h2>
-                <button class="ui button">VOTE</button>
-              </div>
-            </div>
-        </div>
-      </div>
-
-
-      
+<!-- displays poll cards  -->
+    <main id="main">
+         
     </main>
     
 
