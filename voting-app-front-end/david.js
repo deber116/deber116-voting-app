@@ -6,6 +6,7 @@ const main = () => {
     showCreatePollForm();
     createPollEventListener();
     getPolls();
+    voteEventListener()
 }
 
 let currentUser;
@@ -68,6 +69,7 @@ const createPollEventListener = () => {
             .then(response => {
                 console.log(response)
                 createPollCard(response)
+                pollContainer.style.display = 'none'
             })
 
         } else {
@@ -88,12 +90,12 @@ const createPollCard = (pollObj) => {
                 <div class="column">
                     <p>Option #1</p>
                     <h2 class="option-one">${pollObj.options[0].name}</h2>
-                    <button class="ui button">VOTE</button>
+                    <button name="vote-button" data-vote=${pollObj.id} id=${pollObj.options[0].id} class="ui button">VOTE</button>
                 </div>
                 <div class="column">
                     <p>Option #2</p>
                     <h2 class="option-two">${pollObj.options[1].name}</h2>
-                    <button class="ui button">VOTE</button>
+                    <button name="vote-button" data-vote=${pollObj.id} id=${pollObj.options[1].id} class="ui button">VOTE</button>
                 </div>
             </div>
         </div>
@@ -101,6 +103,15 @@ const createPollCard = (pollObj) => {
   `
   mainNode.innerHTML = pollCard + mainNode.innerHTML
 
+}
+
+const voteEventListener = () => {
+    mainNode.addEventListener("click", event => {
+       if (event.target.dataset.vote) {
+           
+       }
+       
+    })
 }
 
 const createUserInstance = () => {
@@ -124,7 +135,10 @@ const createUserInstance = () => {
         .then(resp => resp.json())
         .then(response => {
             currentUser = response
-            console.log(currentUser)
+            //document.cookie = `username=${currentUser["name"]}`;
+            // document.cookie = "test1=Hello";
+            // let testCookie = document.cookie.replace(/(?:(?:^|.*;\s*)test1\s*\=\s*([^;]*).*$)|^.*$/, "$1")
+            // console.log(testCookie)
         })
         userForm.querySelector('[name="user_email"]').value = ''
         event.preventDefault();
