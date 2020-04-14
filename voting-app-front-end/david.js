@@ -5,14 +5,16 @@ const main = () => {
     createUserInstance();
     showCreatePollForm();
     createPollEventListener();
+    getPolls();
 }
 
 let currentUser;
 let addPoll = false;
 const createPollBtn = document.getElementById("create-poll");
 const pollForm = document.getElementById("add-poll-form");
-const pollContainer = document.getElementById('poll-container');
+const pollContainer = document.getElementById("poll-container");
 const userForm = document.querySelector("form.add-user-form")
+const mainNode = document.getElementById("main")
 
 const showCreatePollForm = () => {
     createPollBtn.addEventListener("click", () => {
@@ -25,15 +27,25 @@ const showCreatePollForm = () => {
     })
 }
 
+const getPolls = () => {
+    //fetch all instances of poll
+    //interate through them and generate cards
+    fetch(POLLS_URL)
+    .then(resp => resp.json())
+    .then(response => {
+        response.forEach(poll => {
+            createPollCard(poll);
+        })
+    })
+}
+
 const createPollEventListener = () => {
     pollForm.addEventListener("submit", (event) => {
         event.preventDefault();
         const pollName = pollForm.querySelector('[name="poll-name"]').value
+        const optionOne = pollForm.querySelector('[name="option-one"]').value
+        const optionTwo = pollForm.querySelector('[name="option-two"]').value
 
-        //create a post fetch to POLLS_URL
-        //body needs to have name and user_id 
-        //user_id is in current_user
-        //need something that will stop this from going through if current_user is blank
         if (currentUser) {
             
             let pollConfigObj = {
@@ -45,7 +57,9 @@ const createPollEventListener = () => {
                 },
                 body: JSON.stringify({
                   "name": pollName,
-                  "user_id": currentUser.id
+                  "user_id": currentUser.id,
+                  "option_one": optionOne,
+                  "option_two": optionTwo
                 })
             }
     
@@ -53,12 +67,40 @@ const createPollEventListener = () => {
             .then(resp => resp.json())
             .then(response => {
                 console.log(response)
+                createPollCard(response)
             })
 
         } else {
-            alert('You must sign in with your email to create a poll.')
+            alert("You must sign in with your email to create a poll.")
         }
+
+        event.target.reset();
     })
+}
+
+const createPollCard = (pollObj) => {
+    let pollCard = `
+    <div class="poll-card">
+        <h1 class="poll-title">${pollObj.name}</h1>
+        <br>
+        <div class="ui vertically divided grid">
+            <div class="two column row">
+                <div class="column">
+                    <p>Option #1</p>
+                    <h2 class="option-one">${pollObj.options[0].name}</h2>
+                    <button class="ui button">VOTE</button>
+                </div>
+                <div class="column">
+                    <p>Option #2</p>
+                    <h2 class="option-two">${pollObj.options[1].name}</h2>
+                    <button class="ui button">VOTE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+  `
+  mainNode.innerHTML = pollCard + mainNode.innerHTML
+
 }
 
 const createUserInstance = () => {
@@ -86,7 +128,9 @@ const createUserInstance = () => {
         })
         userForm.querySelector('[name="user_email"]').value = ''
         event.preventDefault();
+        event.target.parentElement.parentElement.style.display = "none"
     })
+  
 }
 
 main();
