@@ -16,7 +16,7 @@
       <h2>POLL APP</h2>
       <p>Welcome to Poll App where you decide what should win!</p>
   </header>
-<!-- possible menu -->
+<!-- site menu -->
   <div class="ui menu">
       <a id="create-poll" class="header item">
         Create a Poll!
@@ -31,35 +31,36 @@
         About Us!
       </a>
   </div>
-<!-- FORM FROM TOY TALE -->
+
+  <!-- drop down create poll form -->
   <div id='poll-container' style="display: none;">
     <div class="ui large form">
-      <form class="add-poll-form">
+      <form id="add-poll-form">
        <h3>Create a Poll!</h3>
 
       <input
         type="text"
-        name="name"
+        name="poll-name"
         value=""
         placeholder="Enter a Poll Question"
         class="input-text"
       />
-      <br />
+      <br>
       <input
         type="text"
-        name="image"
+        name="optionOne"
         value=""
         placeholder="Option #1"
         class="input-text"
       />
       <input
         type="text"
-        name="image"
+        name="optionTwo"
         value=""
         placeholder="Option #2"
         class="input-text"
       />
-      <br />
+      <br>
       <input
         type="submit"
         name="submit"
@@ -69,9 +70,9 @@
       </form>
     </div>
   </div>
-  <!-- FORM FROM TOY TALE END -->
-
   
+  <!-- user email form -->
+
   <br>
   <div class="user-container">
     <div class="ui large form">
