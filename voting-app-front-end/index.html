@@ -5,16 +5,14 @@
         <title>POLL APP</title>
         <link rel="icon" type="image/png" href="./images/bar-graph-favicon.png">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.3/dist/semantic.min.css">
-      <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.3/dist/semantic.min.js"></script>      
-
+        <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.3/dist/semantic.min.js"></script>      
         <link rel="stylesheet" href="styles.css">
     </head>
 <body id="body">
   <header>
-      <h2 id='header-title'>POLL APP</h2>
-      <p id="tagline">Welcome to Poll App where you decide what should win!</p>
+      <h2 id='header-title'>THIS OR THAT</h2>
+      <p id="tagline">Welcome to the polling app where you decide what should win!</p>
   </header>
-<div id = "whole-page"> <!-- begin whole page div -->
 <!-- site menu -->
   <div id="menu" class="ui menu">
       <a id="create-poll" class="header item">
@@ -26,19 +24,12 @@
       <a class="item">
         My Polls
       </a>
-      <a class="item">
-        About Us!
-      </a>
     <div class="right menu" >
-        <a class="item">
+        <a id="logout" class="item">
           Logout
         </a>
     </div>
   </div>
-
- 
-
-  
 
   <!-- drop down create poll form -->
   <div id='poll-container' style="display: none;">
@@ -80,7 +71,6 @@
   </div>
   
   <!-- user email form -->
-
   <br>
   <div class="user-container">
     <div class="ui large form">
@@ -110,13 +100,11 @@
          
     </main>
     
-  </div> <!-- end whole page div -->
   
-  <canvas id="chart"></canvas>
     
-  <script type="text/javascript" src="david.js"></script>
   <script src="../node_modules/Chart.js/dist/Chart.bundle.js" defer ></script>  
   <script type="text/javascript" src="jasonvotegraph.js" defer></script>
+  <script type="text/javascript" src="david.js"></script>
 
     <!-- This script tag adds cookies and only works with a server / 
          browsers do not accept cookies from local files

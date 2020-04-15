@@ -8,6 +8,7 @@ const main = () => {
     createPollEventListener();
     getPolls();
     voteEventListener()
+
 }
 
 let currentUser;
@@ -101,8 +102,9 @@ const createPollCard = (pollObj) => {
                 </div>
                 <button name="delete-button" data-user-id=${pollObj.user.id} data-poll-id=${pollObj.id} class="ui button" style="display: none;">DELETE</button>
             </div>
-            
+            <canvas id="chart"></canvas>      
         </div>
+        <br>
     </div>
     `
     mainNode.innerHTML = pollCard + mainNode.innerHTML
@@ -147,14 +149,11 @@ const voteEventListener = () => {
                         button.disabled = true
                     })
                 } 
-                
             }) //end of fetch
-            
-
         }
-       
     })
 }
+
 const fetchUserVotes = (userObj) => {
     let allPollCards = document.querySelectorAll("div.poll-card")
     let userPollIds = userObj.votedPollIds.map(choice => {
