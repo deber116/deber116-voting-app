@@ -6,6 +6,7 @@ class PollSerializer
     def to_serialized_json
         @poll.to_json(:include => {
             :options => {
+                #should return the number of votes, not all the vote objects
                 :include => {:votes => {:only => [:id, :user_id]}},
                 :only => [:id, :name, :poll_id]}
         }, :except => [:updated_at, :created_at])
