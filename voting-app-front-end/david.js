@@ -35,7 +35,6 @@ const getPolls = () => {
     fetch(POLLS_URL)
     .then(resp => resp.json())
     .then(response => {
-        //console.log(response)
         response.forEach(poll => {
             createPollCard(poll);
         })
@@ -71,8 +70,6 @@ const createPollEventListener = () => {
             .then(response => {
                 createPollCard(response)
                 pollContainer.style.display = 'none'
-                //if user has already voted on an option, it should change the 
-                //background color to lightgreen and disable the button
             })
 
         } else {
@@ -111,10 +108,6 @@ const createPollCard = (pollObj) => {
     mainNode.innerHTML = pollCard + mainNode.innerHTML
 
     let pollNode = mainNode.querySelector(`div[data-poll-id='${pollObj.id}']`)
-    //console.log(pollNode)
-    //function below still needs to be finished
-    checkIfUserVoted(pollNode)
-
 }
 
 const voteEventListener = () => {
@@ -123,10 +116,9 @@ const voteEventListener = () => {
             let voteButton = event.target
             let votesNode = event.target.previousSibling.previousSibling;
             let numVotes = parseInt(votesNode.innerHTML.split(" ")[1])
-            //send fetch post request to the vote controller 
-            //create vote object
-            //assign option_id and user_id to vote
-            //console.log(currentUser.id)
+            let cardNode = voteButton.parentElement.parentElement.parentElement.parentElement
+            let allVoteButtons = cardNode.querySelectorAll('button[name="vote-button"]')
+            
             console.log(numVotes)
             let voteConfigObj = {
                 method: "POST",
@@ -151,7 +143,9 @@ const voteEventListener = () => {
                     numVotes += 1
                     votesNode.innerHTML = `Votes: ${numVotes}`
                     voteButton.style.backgroundColor = "lightgreen"
-                    voteButton.disabled = true
+                    allVoteButtons.forEach(button => {
+                        button.disabled = true
+                    })
                 } 
                 
             }) //end of fetch
