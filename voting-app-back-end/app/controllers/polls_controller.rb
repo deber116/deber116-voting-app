@@ -1,8 +1,8 @@
 class PollsController < ApplicationController
     def index
         polls = Poll.all 
-        render json: PollSerializer.new(polls).to_serialized_json
-        
+        #render json: PollSerializer.new(polls).to_serialized_json
+        render json: polls
     end 
 
     def create
