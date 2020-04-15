@@ -11,12 +11,14 @@ const main = () => {
 }
 
 let currentUser;
+let currentUserVotes;
 let addPoll = false;
 const createPollBtn = document.getElementById("create-poll");
 const pollForm = document.getElementById("add-poll-form");
 const pollContainer = document.getElementById("poll-container");
 const userForm = document.querySelector("form.add-user-form")
 const mainNode = document.getElementById("main")
+
 
 const showCreatePollForm = () => {
     createPollBtn.addEventListener("click", () => {
@@ -30,12 +32,10 @@ const showCreatePollForm = () => {
 }
 
 const getPolls = () => {
-    //fetch all instances of poll
-    //interate through them and generate cards
     fetch(POLLS_URL)
     .then(resp => resp.json())
     .then(response => {
-        console.log(response)
+        //console.log(response)
         response.forEach(poll => {
             createPollCard(poll);
         })
@@ -82,13 +82,10 @@ const createPollEventListener = () => {
         event.target.reset();
     })
 }
-const checkIfUserVoted = () => {
-    //querSelector all pollCards 
-    //iterate through and change vote buttons to reflect if user voted 
-}
+
 const createPollCard = (pollObj) => {
     let pollCard = `
-    <div class="poll-card">
+    <div class="poll-card" data-user-id=${pollObj.user.id} data-poll-id=${pollObj.id}>
         <h1 class="poll-title">${pollObj.name}</h1>
         <br>
         <div class="ui vertically divided grid">
@@ -96,21 +93,27 @@ const createPollCard = (pollObj) => {
                 <div class="column">
                     <p>Option #1</p>
                     <h2 class="option-one">${pollObj.options[0].name}</h2>
-                    <p id="option-one-votes">Votes: ${pollObj.options[0].votes.length}</p>
+                    <p id="option-one-votes">Votes: ${pollObj.options[0].numVotes}</p>
                     <button name="vote-button" data-vote=${pollObj.id} id=${pollObj.options[0].id} class="ui button">VOTE</button>
                 </div>
                 <div class="column">
                     <p>Option #2</p>
                     <h2 class="option-two">${pollObj.options[1].name}</h2>
-                    <p id="option-two-votes">Votes: ${pollObj.options[1].votes.length}</p>
+                    <p id="option-two-votes">Votes: ${pollObj.options[1].numVotes}</p>
                     <button name="vote-button" data-vote=${pollObj.id} id=${pollObj.options[1].id} class="ui button">VOTE</button>
                 </div>
+                <button name="delete-button" data-user-id=${pollObj.user.id} data-poll-id=${pollObj.id} class="ui button" style="display: none;">DELETE</button>
             </div>
+            
         </div>
     </div>
     `
     mainNode.innerHTML = pollCard + mainNode.innerHTML
 
+    let pollNode = mainNode.querySelector(`div[data-poll-id='${pollObj.id}']`)
+    //console.log(pollNode)
+    //function below still needs to be finished
+    checkIfUserVoted(pollNode)
 
 }
 
@@ -149,9 +152,7 @@ const voteEventListener = () => {
                     votesNode.innerHTML = `Votes: ${numVotes}`
                     voteButton.style.backgroundColor = "lightgreen"
                     voteButton.disabled = true
-                } else {
-                    alert("You've already voted on this poll. You can't vote on this this poll again.")
-                }
+                } 
                 
             }) //end of fetch
             
@@ -159,6 +160,31 @@ const voteEventListener = () => {
         }
        
     })
+}
+const fetchUserVotes = (userObj) => {
+    let allPollCards = document.querySelectorAll("div.poll-card")
+    let userPollIds = userObj.votedPollIds.map(choice => {
+        return choice["pollId"]
+    })
+    
+    allPollCards.forEach(card => {
+        let allVoteButtons = card.querySelectorAll('button[name="vote-button"]')
+        if (userPollIds.includes(parseInt(card.dataset.pollId))) {
+            userObj.votedPollIds.forEach(voteObj => {
+                if (parseInt(voteObj.pollId) == parseInt(card.dataset.pollId)) {
+                    let greenButton = card.querySelector(`button[id="${voteObj.optionId}"]`)
+                    greenButton.style.backgroundColor = "lightgreen"
+
+                    allVoteButtons.forEach(button => {
+                        button.disabled = true
+                    })
+                }
+            })
+
+        }
+    })
+    
+    
 }
 
 const createUserInstance = () => {
@@ -182,14 +208,15 @@ const createUserInstance = () => {
         .then(resp => resp.json())
         .then(response => {
             currentUser = response
-            //document.cookie = `username=${currentUser["name"]}`;
-            // document.cookie = "test1=Hello";
-            // let testCookie = document.cookie.replace(/(?:(?:^|.*;\s*)test1\s*\=\s*([^;]*).*$)|^.*$/, "$1")
-            // console.log(testCookie)
+            if (currentUser) {
+                event.target.parentElement.parentElement.style.display = "none"
+                mainNode.style.display = "block"
+                fetchUserVotes(currentUser)
+            }
         })
+    
         userForm.querySelector('[name="user_email"]').value = ''
         event.preventDefault();
-        event.target.parentElement.parentElement.style.display = "none"
     })
   
 }
