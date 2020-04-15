@@ -7,11 +7,11 @@ class PollsController < ApplicationController
 
     def create
         poll_info = JSON.parse(request.body.string)
-        poll_name = JSON.parse(request.body.string)["name"]
-        poll_user = JSON.parse(request.body.string)["user_id"]
+        poll_name = poll_info["name"]
+        poll_user = poll_info["user_id"]
 
-        option_one = JSON.parse(request.body.string)["option_one"]
-        option_two = JSON.parse(request.body.string)["option_two"]
+        option_one = poll_info["option_one"]
+        option_two = poll_info["option_two"]
         
         poll = Poll.create(name: poll_name, user_id: poll_user)
         poll.options << Option.create(name: option_one)
