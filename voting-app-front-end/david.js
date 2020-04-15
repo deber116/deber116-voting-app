@@ -69,9 +69,10 @@ const createPollEventListener = () => {
             fetch(POLLS_URL, pollConfigObj)
             .then(resp => resp.json())
             .then(response => {
-                //console.log(response)
                 createPollCard(response)
                 pollContainer.style.display = 'none'
+                //if user has already voted on an option, it should change the 
+                //background color to lightgreen and disable the button
             })
 
         } else {
@@ -81,7 +82,10 @@ const createPollEventListener = () => {
         event.target.reset();
     })
 }
-
+const checkIfUserVoted = () => {
+    //querSelector all pollCards 
+    //iterate through and change vote buttons to reflect if user voted 
+}
 const createPollCard = (pollObj) => {
     let pollCard = `
     <div class="poll-card">
@@ -104,20 +108,23 @@ const createPollCard = (pollObj) => {
             </div>
         </div>
     </div>
-  `
-  mainNode.innerHTML = pollCard + mainNode.innerHTML
+    `
+    mainNode.innerHTML = pollCard + mainNode.innerHTML
+
 
 }
 
 const voteEventListener = () => {
     mainNode.addEventListener("click", event => {
         if (event.target.dataset.vote) {
-            let votesNode = event.target.previousSibling;
+            let voteButton = event.target
+            let votesNode = event.target.previousSibling.previousSibling;
+            let numVotes = parseInt(votesNode.innerHTML.split(" ")[1])
             //send fetch post request to the vote controller 
             //create vote object
             //assign option_id and user_id to vote
             //console.log(currentUser.id)
-            
+            console.log(numVotes)
             let voteConfigObj = {
                 method: "POST",
                 headers: 
@@ -135,8 +142,19 @@ const voteEventListener = () => {
             fetch(VOTES_URL, voteConfigObj)
             .then(resp => resp.json())
             .then(response => {
-                //increase number of votes on option
-            })
+                //response.id comes back null if they've already voted on the poll
+                //this is because of the uniqueness validation in rails on Vote model
+                if (response.id != null) {
+                    numVotes += 1
+                    votesNode.innerHTML = `Votes: ${numVotes}`
+                    voteButton.style.backgroundColor = "lightgreen"
+                    voteButton.disabled = true
+                } else {
+                    alert("You've already voted on this poll. You can't vote on this this poll again.")
+                }
+                
+            }) //end of fetch
+            
 
         }
        
