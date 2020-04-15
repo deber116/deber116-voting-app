@@ -61,5 +61,5 @@ addGraphToPollCard = (canvasTag, optionOne, optionTwo) => {
         }
     });
 }
-addGraphToPollCard(1, 2, 3)
+// addGraphToPollCard(1, 2, 3)
 
