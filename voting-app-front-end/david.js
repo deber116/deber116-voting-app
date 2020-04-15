@@ -1,5 +1,6 @@
 const USERS_URL = "http://localhost:3000/users"
 const POLLS_URL = "http://localhost:3000/polls"
+const VOTES_URL = "http://localhost:3000/votes"
 
 const main = () => {
     createUserInstance();
@@ -34,6 +35,7 @@ const getPolls = () => {
     fetch(POLLS_URL)
     .then(resp => resp.json())
     .then(response => {
+        console.log(response)
         response.forEach(poll => {
             createPollCard(poll);
         })
@@ -67,7 +69,7 @@ const createPollEventListener = () => {
             fetch(POLLS_URL, pollConfigObj)
             .then(resp => resp.json())
             .then(response => {
-                console.log(response)
+                //console.log(response)
                 createPollCard(response)
                 pollContainer.style.display = 'none'
             })
@@ -90,11 +92,13 @@ const createPollCard = (pollObj) => {
                 <div class="column">
                     <p>Option #1</p>
                     <h2 class="option-one">${pollObj.options[0].name}</h2>
+                    <p id="option-one-votes">Votes: ${pollObj.options[0].votes.length}</p>
                     <button name="vote-button" data-vote=${pollObj.id} id=${pollObj.options[0].id} class="ui button">VOTE</button>
                 </div>
                 <div class="column">
                     <p>Option #2</p>
                     <h2 class="option-two">${pollObj.options[1].name}</h2>
+                    <p id="option-two-votes">Votes: ${pollObj.options[1].votes.length}</p>
                     <button name="vote-button" data-vote=${pollObj.id} id=${pollObj.options[1].id} class="ui button">VOTE</button>
                 </div>
             </div>
@@ -107,9 +111,34 @@ const createPollCard = (pollObj) => {
 
 const voteEventListener = () => {
     mainNode.addEventListener("click", event => {
-       if (event.target.dataset.vote) {
-           
-       }
+        if (event.target.dataset.vote) {
+            let votesNode = event.target.previousSibling;
+            //send fetch post request to the vote controller 
+            //create vote object
+            //assign option_id and user_id to vote
+            //console.log(currentUser.id)
+            
+            let voteConfigObj = {
+                method: "POST",
+                headers: 
+                {
+                "Content-Type": "application/json",
+                Accept: "application/json"
+                },
+                
+                body: JSON.stringify({
+                "option_id": event.target.id,
+                "user_id": currentUser.id
+                })
+            }
+
+            fetch(VOTES_URL, voteConfigObj)
+            .then(resp => resp.json())
+            .then(response => {
+                //increase number of votes on option
+            })
+
+        }
        
     })
 }
