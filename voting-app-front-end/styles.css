@@ -36,6 +36,8 @@ div {
 }
 
 #header-title {
+    text-align: center;
+    font-size: 50px;
     color: black;
   -webkit-text-fill-color: white; 
   -webkit-text-stroke-width: 1px;
@@ -53,3 +55,7 @@ div {
                  0 10px 10px rgba(0,0,0,.2),
                  0 20px 20px rgba(0,0,0,.15);
   }
+
+#tagline {
+    text-align: center;
+}

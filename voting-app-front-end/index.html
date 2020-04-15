@@ -4,8 +4,6 @@
         <meta charset="utf-8">
         <title>POLL APP</title>
         <link rel="icon" type="image/png" href="./images/bar-graph-favicon.png">
-
-        <link rel="stylesheet" type="text/css" href="./Semantic-UI-CSS/semantic.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.3/dist/semantic.min.css">
       <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.3/dist/semantic.min.js"></script>      
 
@@ -14,8 +12,9 @@
 <body id="body">
   <header>
       <h2 id='header-title'>POLL APP</h2>
-      <p>Welcome to Poll App where you decide what should win!</p>
+      <p id="tagline">Welcome to Poll App where you decide what should win!</p>
   </header>
+<div id = "whole-page"> <!-- begin whole page div -->
 <!-- site menu -->
   <div id="menu" class="ui menu">
       <a id="create-poll" class="header item">
@@ -30,12 +29,16 @@
       <a class="item">
         About Us!
       </a>
-    </div>
     <div class="right menu" >
         <a class="item">
           Logout
         </a>
     </div>
+  </div>
+
+ 
+
+  
 
   <!-- drop down create poll form -->
   <div id='poll-container' style="display: none;">
@@ -107,9 +110,14 @@
          
     </main>
     
+  </div> <!-- end whole page div -->
 
     <script type="text/javascript" src="david.js"></script>
-    <script type="text/javascript" src="jason.js"></script>
+
+    <!-- This script tag adds cookies and only works with a server / 
+         browsers do not accept cookies from local files
+    <script type="text/javascript" src="jason.js" defer></script> 
+    -->
   </body>
   
 </html>
