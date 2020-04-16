@@ -16,9 +16,9 @@ const showGraph = () => {
 
     let signIn = document.querySelectorAll('.ui.button.submit')[1]
     
-    if (event.target == signIn){
-        addGraphToVotedPolls()
-    }
+    // if (event.target == signIn){
+    //     addGraphToVotedPolls()
+    // }
 
     if (event.target.dataset.vote){
 
@@ -33,11 +33,26 @@ const showGraph = () => {
     }
 }
 
-const addGraphToVotedPolls = () => {
-    let allPollCards = document.querySelectorAll("div.poll-card")
-    console.log(allPollCards)
+// const addGraphToVotedPolls = () => {
+//     let votedPollCards = document.querySelectorAll('.poll-card')
+//     console.log(votedPollCards)
 
-}
+//     votedPollCards.forEach(card => {
+//         console.log(card)
+//         // if (card.className === 'voted'){
+//         //     console.log(card)
+
+//         // }
+
+//         // let graphNode = card.lastElementChild.previousElementSibling.lastElementChild
+//         // let getPollId = card.dataset.pollId
+//         // fetch(POLLS_URL + `/${getPollId}`)
+//         // .then(resp => resp.json())
+//         // .then(pollObj => {
+//         //     addGraphToPollCard(graphNode, pollObj)
+//         // })
+//     })
+// }
 
 addGraphToPollCard = (canvasTag, pollObj) => {
 
