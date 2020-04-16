@@ -9,6 +9,7 @@ const main = () => {
     getPolls();
     voteEventListener();
     deleteEventListener();
+    addHeaderEventListeners();
 }
 
 let currentUser;
@@ -18,6 +19,7 @@ const pollForm = document.getElementById("add-poll-form");
 const pollContainer = document.getElementById("poll-container");
 const userForm = document.querySelector("form.add-user-form")
 const mainNode = document.getElementById("main")
+
 
 const showCreatePollForm = () => {
     createPollBtn.addEventListener("click", () => {
@@ -83,7 +85,7 @@ const createPollEventListener = () => {
 
 const createPollCard = (pollObj) => {
     let pollCard = `
-    <div class="poll-card" data-user-id=${pollObj.user.id} data-poll-id=${pollObj.id}>
+    <div class="poll-card" data-user-id=${pollObj.user.id} data-poll-id=${pollObj.id} style="display: block;">
         <h1 class="poll-title">${pollObj.name}</h1>
         <br>
         <div class="ui vertically divided grid">
@@ -164,6 +166,7 @@ const voteEventListener = () => {
 }
 
 const fetchUserVotes = (userObj) => {
+    //cant be a global variable since that would make it defined too early
     let allPollCards = document.querySelectorAll("div.poll-card")
     let userPollIds = userObj.votedPollIds.map(choice => {
         return choice["pollId"]
@@ -260,6 +263,34 @@ const deleteEventListener = () => {
         }
     })
 
+}
+
+const addHeaderEventListeners = () => {
+    //find the button in the header
+    myPollsButton = document.getElementById("my-polls")
+    allPollsButton = document.getElementById("view-all-polls")
+    //add the event listener
+    myPollsButton.addEventListener("click", event => {
+        //allPollCards needs to be set on click so it's current at time of click
+        let allPollCards = document.querySelectorAll("div.poll-card")
+        //go through  the pollCards and hide the ones the user didnt create
+        allPollCards.forEach(card => {
+            if (currentUser) {
+                if (card.dataset.userId != currentUser.id) {
+                    card.style.display = "none"
+                }
+            }
+        })
+
+    })
+
+    allPollsButton.addEventListener("click", event => {
+        let allPollCards = document.querySelectorAll("div.poll-card")
+        allPollCards.forEach(card => {
+            card.style.display = "block"
+        })
+    })
+    
 }
 
 main();
