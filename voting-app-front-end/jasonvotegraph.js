@@ -10,9 +10,47 @@ const logOutFeature = () => {
 }
 
 
-addGraphToPollCard = (canvasTag, pollObj) => {
+const addGraphListener = () => {
+    document.addEventListener("click", showGraph);
+    //document.addEventListener("mouseout", hideGraph)
 
-    // let ctx = document.getElementById('chart') // insert canvas tag
+}
+
+const showGraph = () => {
+
+
+    if (event.target.dataset.vote){
+
+        let graphNode = event.target.parentElement.parentElement.nextElementSibling 
+        let getPollId = event.target.dataset.vote 
+        let optionVote = event.target.id
+        
+        fetch(POLLS_URL + `/${getPollId}`)
+        .then(resp => resp.json())
+        .then(pollObj => {
+            addGraphToPollCard(graphNode, pollObj, optionVote)
+        })
+    }
+}
+
+
+
+addGraphToPollCard = (canvasTag, pollObj, optionVote = 0) => {
+
+    //set if option
+
+    let dataOne = pollObj.options[0].numVotes
+    let dataTwo = pollObj.options[1].numVotes
+
+    if (optionVote % 2 === 0){
+        dataTwo += 1 
+    }  
+    if (optionVote + 1 % 2 === 0){
+        dataOne += 1
+    }
+
+
+
     let ctx = canvasTag
 
     ctx.style.width = '500px'
@@ -23,9 +61,10 @@ addGraphToPollCard = (canvasTag, pollObj) => {
         data: {
             datasets: [{
                 maxBarThickness: 100,
-                label: pollObj.options[0].name,
-                // data: [this.optionOne.votes.length],
-                data: [pollObj.options[0].numVotes],
+                //label: pollObj.options[0].name,
+                // data: [pollObj.options[0].numVotes],
+                label: 'one',
+                data: [dataOne],
                 backgroundColor: ['rgba(14, 110, 184)'],
                 borderColor: ['rgba(135, 108, 108)'],
                 borderWidth: 1
@@ -35,7 +74,7 @@ addGraphToPollCard = (canvasTag, pollObj) => {
                 // label: optionTwo.name,
                 // data: [this.optionTwo.votes.length],
                 label: 'two',
-                data: [2],
+                data: [dataTwo],
                 backgroundColor: [
                     'rgba(184, 14, 25)'
                 ],
@@ -74,19 +113,8 @@ addGraphToPollCard = (canvasTag, pollObj) => {
         }
     });
 }
-// addGraphToPollCard(1, 2, 3)
 
 logOutFeature()
-
-// handleGraphDisplay(event)
-// const handleGraphDisplay = (event) => {
-//     // adds graph to button of poll div upon vote
-//     let graphNode = event.target.parentElement.parentElement.nextElementSibling
-//     let thisPollId = event.target.id
-                        
-//     fetch(POLLS_URL + `/${thisPollId}`)
-//     .then(resp => resp.json())
-//     .then(pollObj => addGraphToPollCard(graphNode, pollObj))
-// }
+addGraphListener()
 
 

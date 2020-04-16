@@ -7,8 +7,7 @@ const main = () => {
     showCreatePollForm();
     createPollEventListener();
     getPolls();
-    voteEventListener()
-
+    voteEventListener();
 }
 
 let currentUser;
@@ -19,7 +18,6 @@ const pollForm = document.getElementById("add-poll-form");
 const pollContainer = document.getElementById("poll-container");
 const userForm = document.querySelector("form.add-user-form")
 const mainNode = document.getElementById("main")
-
 
 const showCreatePollForm = () => {
     createPollBtn.addEventListener("click", () => {
@@ -121,7 +119,6 @@ const voteEventListener = () => {
             let cardNode = voteButton.parentElement.parentElement.parentElement.parentElement
             let allVoteButtons = cardNode.querySelectorAll('button[name="vote-button"]')
             
-            console.log(numVotes)
             let voteConfigObj = {
                 method: "POST",
                 headers: 
@@ -159,26 +156,23 @@ const fetchUserVotes = (userObj) => {
     let userPollIds = userObj.votedPollIds.map(choice => {
         return choice["pollId"]
     })
-    
     allPollCards.forEach(card => {
         let allVoteButtons = card.querySelectorAll('button[name="vote-button"]')
+
         if (userPollIds.includes(parseInt(card.dataset.pollId))) {
             userObj.votedPollIds.forEach(voteObj => {
                 if (parseInt(voteObj.pollId) == parseInt(card.dataset.pollId)) {
                     let greenButton = card.querySelector(`button[id="${voteObj.optionId}"]`)
                     greenButton.style.backgroundColor = "lightgreen"
-
                     allVoteButtons.forEach(button => {
                         button.disabled = true
                     })
                 }
-            })
-
+            })        
         }
-    })
-    
-    
+    })    
 }
+
 
 const createUserInstance = () => {
     userForm.addEventListener("submit", (event) => {
