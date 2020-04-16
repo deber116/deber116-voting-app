@@ -1,7 +1,6 @@
 class PollsController < ApplicationController
     def index
         polls = Poll.all 
-        #render json: PollSerializer.new(polls).to_serialized_json
         render json: polls
     end 
 
@@ -22,6 +21,13 @@ class PollsController < ApplicationController
         poll.options << Option.create(name: option_one)
         poll.options << Option.create(name: option_two)
 
-        render json: PollSerializer.new(poll).to_serialized_json
+        render json: poll
+    end
+
+    def destroy
+        poll_id = JSON.parse(request.body.string)["poll_id"].to_i
+        delete_poll = Poll.find(poll_id)
+        delete_poll.destroy
+        render json: delete_poll
     end
 end

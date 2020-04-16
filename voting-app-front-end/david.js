@@ -8,10 +8,10 @@ const main = () => {
     createPollEventListener();
     getPolls();
     voteEventListener();
+    deleteEventListener();
 }
 
 let currentUser;
-let currentUserVotes;
 let addPoll = false;
 const createPollBtn = document.getElementById("create-poll");
 const pollForm = document.getElementById("add-poll-form");
@@ -67,7 +67,9 @@ const createPollEventListener = () => {
             fetch(POLLS_URL, pollConfigObj)
             .then(resp => resp.json())
             .then(response => {
+                console.log(response)
                 createPollCard(response)
+                
                 pollContainer.style.display = 'none'
             })
 
@@ -108,6 +110,15 @@ const createPollCard = (pollObj) => {
     mainNode.innerHTML = pollCard + mainNode.innerHTML
 
     let pollNode = mainNode.querySelector(`div[data-poll-id='${pollObj.id}']`)
+    
+    //Below should only trigger if the user is signed in AKA when a new poll is created
+    if (currentUser) {
+        if (pollNode.dataset.userId == currentUser.id) {
+            let deleteButton = pollNode.querySelector('button[name="delete-button"]')
+            deleteButton.style.display = "block"
+        }
+    }
+    
 }
 
 const voteEventListener = () => {
@@ -146,7 +157,9 @@ const voteEventListener = () => {
                         button.disabled = true
                     })
                 } 
-            }) //end of fetch
+                
+            }) 
+
         }
     })
 }
@@ -156,11 +169,26 @@ const fetchUserVotes = (userObj) => {
     let userPollIds = userObj.votedPollIds.map(choice => {
         return choice["pollId"]
     })
+
+    //Look at all the poll cards
     allPollCards.forEach(card => {
         let allVoteButtons = card.querySelectorAll('button[name="vote-button"]')
 
+        //add the delete button if the userId on the poll matches the currentUser
+        if (parseInt(card.dataset.userId) == parseInt(currentUser.id)) {
+            let deleteButton = card.querySelector('button[name="delete-button"]')
+            deleteButton.style.display = "block"
+        }
+        
+        //Get all the vote buttons of the card and if the pollId matches one that the user voted on...
+    allPollCards.forEach(card => {
+        let allVoteButtons = card.querySelectorAll('button[name="vote-button"]')
+
+
         if (userPollIds.includes(parseInt(card.dataset.pollId))) {
+            //iterate through the array of vote objects {pollId: #, optionId: #}
             userObj.votedPollIds.forEach(voteObj => {
+                //If the poll in the voteObj == the pollId of the card...
                 if (parseInt(voteObj.pollId) == parseInt(card.dataset.pollId)) {
                     let greenButton = card.querySelector(`button[id="${voteObj.optionId}"]`)
                     greenButton.style.backgroundColor = "lightgreen"
@@ -187,7 +215,7 @@ const createUserInstance = () => {
             },
              
             body: JSON.stringify({
-              "email": email,
+              "email": email.toLowerCase(),
             })
         }
 
@@ -205,7 +233,36 @@ const createUserInstance = () => {
         userForm.querySelector('[name="user_email"]').value = ''
         event.preventDefault();
     })
-  
+}
+
+const deleteEventListener = () => {
+    mainNode.addEventListener("click", event => {
+        if (event.target.tagName == "BUTTON") {
+            if (event.target.attributes.name.value == "delete-button") {
+                
+                let deletePollId = event.target.dataset.pollId
+                let deleteConfigObj = {
+                    method: "DELETE",
+                    headers: 
+                    {
+                    "Content-Type": "application/json",
+                    Accept: "application/json"
+                    },
+                    body: JSON.stringify({
+                    "poll_id": deletePollId
+                    })
+                }
+                
+                fetch((POLLS_URL + "/" + deletePollId), deleteConfigObj)
+                .then(resp => resp.json())
+                .then(response => {
+                    deletedPoll = mainNode.querySelector(`div[data-poll-id="${response.id}"]`)
+                    deletedPoll.remove()
+                })
+            }
+        }
+    })
+
 }
 
 main();
