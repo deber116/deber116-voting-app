@@ -4,6 +4,11 @@ class PollsController < ApplicationController
         render json: polls
     end 
 
+    def show
+        poll = Poll.find_by(id: params[:id])
+        render json: poll
+    end 
+
     def create
         poll_info = JSON.parse(request.body.string)
         poll_name = poll_info["name"]

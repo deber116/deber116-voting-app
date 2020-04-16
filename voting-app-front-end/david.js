@@ -19,7 +19,6 @@ const pollContainer = document.getElementById("poll-container");
 const userForm = document.querySelector("form.add-user-form")
 const mainNode = document.getElementById("main")
 
-
 const showCreatePollForm = () => {
     createPollBtn.addEventListener("click", () => {
         addPoll = !addPoll;
@@ -103,8 +102,9 @@ const createPollCard = (pollObj) => {
                 </div>
                 <button name="delete-button" data-user-id=${pollObj.user.id} data-poll-id=${pollObj.id} class="ui button" style="display: none;">DELETE</button>
             </div>
-            
+            <canvas id="chart"></canvas>      
         </div>
+        <br>
     </div>
     `
     mainNode.innerHTML = pollCard + mainNode.innerHTML
@@ -130,7 +130,6 @@ const voteEventListener = () => {
             let cardNode = voteButton.parentElement.parentElement.parentElement.parentElement
             let allVoteButtons = cardNode.querySelectorAll('button[name="vote-button"]')
             
-            console.log(numVotes)
             let voteConfigObj = {
                 method: "POST",
                 headers: 
@@ -160,15 +159,17 @@ const voteEventListener = () => {
                 } 
                 
             }) 
+
         }
-       
     })
 }
+
 const fetchUserVotes = (userObj) => {
     let allPollCards = document.querySelectorAll("div.poll-card")
     let userPollIds = userObj.votedPollIds.map(choice => {
         return choice["pollId"]
     })
+
     //Look at all the poll cards
     allPollCards.forEach(card => {
         let allVoteButtons = card.querySelectorAll('button[name="vote-button"]')
@@ -180,6 +181,10 @@ const fetchUserVotes = (userObj) => {
         }
         
         //Get all the vote buttons of the card and if the pollId matches one that the user voted on...
+    allPollCards.forEach(card => {
+        let allVoteButtons = card.querySelectorAll('button[name="vote-button"]')
+
+
         if (userPollIds.includes(parseInt(card.dataset.pollId))) {
             //iterate through the array of vote objects {pollId: #, optionId: #}
             userObj.votedPollIds.forEach(voteObj => {
@@ -191,13 +196,11 @@ const fetchUserVotes = (userObj) => {
                         button.disabled = true
                     })
                 }
-            })
-
+            })        
         }
-    })
-    
-    
+    })    
 }
+
 
 const createUserInstance = () => {
     userForm.addEventListener("submit", (event) => {
