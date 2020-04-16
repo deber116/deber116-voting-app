@@ -104,7 +104,6 @@ const createPollCard = (pollObj) => {
             </div>
             <canvas id="chart"></canvas>      
         </div>
-        <br>
     </div>
     `
     mainNode.innerHTML = pollCard + mainNode.innerHTML

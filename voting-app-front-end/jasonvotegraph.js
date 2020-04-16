@@ -13,9 +13,19 @@ const addGraphListener = () => {
 }
 
 const showGraph = () => {
-
- 
-
+    
+    if (event.target.dataset.vote){
+        
+        let graphNode = event.target.parentElement.parentElement.nextElementSibling 
+        let getPollId = event.target.dataset.vote 
+        
+        fetch(POLLS_URL + `/${getPollId}`)
+        .then(resp => resp.json())
+        .then(pollObj => {
+            addGraphToPollCard(graphNode, pollObj)
+        })
+    }
+    
     if (event.target.lastElementChild.disabled){
         let graphNode = event.target.parentElement.nextElementSibling
         let getPollId = event.target.lastElementChild.dataset.vote
@@ -26,41 +36,7 @@ const showGraph = () => {
             addGraphToPollCard(graphNode, pollObj)
         })
     }
-
-
-    if (event.target.dataset.vote){
-
-        let graphNode = event.target.parentElement.parentElement.nextElementSibling 
-        let getPollId = event.target.dataset.vote 
-        
-        fetch(POLLS_URL + `/${getPollId}`)
-        .then(resp => resp.json())
-        .then(pollObj => {
-            addGraphToPollCard(graphNode, pollObj)
-        })
-    }
 }
-
-// const addGraphToVotedPolls = () => {
-//     let votedPollCards = document.querySelectorAll('.poll-card')
-//     console.log(votedPollCards)
-
-//     votedPollCards.forEach(card => {
-//         console.log(card)
-//         // if (card.className === 'voted'){
-//         //     console.log(card)
-
-//         // }
-
-//         // let graphNode = card.lastElementChild.previousElementSibling.lastElementChild
-//         // let getPollId = card.dataset.pollId
-//         // fetch(POLLS_URL + `/${getPollId}`)
-//         // .then(resp => resp.json())
-//         // .then(pollObj => {
-//         //     addGraphToPollCard(graphNode, pollObj)
-//         // })
-//     })
-// }
 
 addGraphToPollCard = (canvasTag, pollObj) => {
 
