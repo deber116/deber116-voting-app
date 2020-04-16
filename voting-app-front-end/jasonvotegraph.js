@@ -10,6 +10,13 @@ const logOutFeature = () => {
 
 const addGraphListener = () => {
     document.addEventListener("click", showGraph);
+    //document.addEventListener("click", showGraph);
+    // let allPollCards = document.querySelectorAll("div.poll-card")
+    // console.log("i'm working")
+    // allPollCards.forEach(card => {
+    //     console.log(card)
+    //     card.addEventListener("mouseover", showGraph);
+    // })
 }
 
 const showGraph = () => {
@@ -25,7 +32,7 @@ const showGraph = () => {
             addGraphToPollCard(graphNode, pollObj)
         })
     }
-    
+    //this is causing errors because the disabled function cannot be called on some targets
     if (event.target.lastElementChild.disabled){
         let graphNode = event.target.parentElement.nextElementSibling
         let getPollId = event.target.lastElementChild.dataset.vote
