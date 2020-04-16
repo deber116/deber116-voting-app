@@ -180,11 +180,7 @@ const fetchUserVotes = (userObj) => {
             deleteButton.style.display = "block"
         }
         
-        //Get all the vote buttons of the card and if the pollId matches one that the user voted on...
-    allPollCards.forEach(card => {
-        let allVoteButtons = card.querySelectorAll('button[name="vote-button"]')
-
-
+        //Get all the vote buttons of the card and if the pollId matches one that the user voted on..
         if (userPollIds.includes(parseInt(card.dataset.pollId))) {
             //iterate through the array of vote objects {pollId: #, optionId: #}
             userObj.votedPollIds.forEach(voteObj => {
