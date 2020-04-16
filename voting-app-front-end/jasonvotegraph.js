@@ -14,11 +14,19 @@ const addGraphListener = () => {
 
 const showGraph = () => {
 
-    let signIn = document.querySelectorAll('.ui.button.submit')[1]
-    
-    // if (event.target == signIn){
-    //     addGraphToVotedPolls()
-    // }
+ 
+
+    if (event.target.lastElementChild.disabled){
+        let graphNode = event.target.parentElement.nextElementSibling
+        let getPollId = event.target.lastElementChild.dataset.vote
+
+        fetch(POLLS_URL + `/${getPollId}`)
+        .then(resp => resp.json())
+        .then(pollObj => {
+            addGraphToPollCard(graphNode, pollObj)
+        })
+    }
+
 
     if (event.target.dataset.vote){
 
