@@ -70,8 +70,13 @@ const createPollEventListener = () => {
             .then(resp => resp.json())
             .then(response => {
                 createPollCard(response)
-                
                 pollContainer.style.display = 'none'
+
+
+                alert('Please sign in to make your poll official!') // reloads page so graphs work
+                window.location.reload();
+
+
             })
 
         } else {
