@@ -33,7 +33,7 @@ const showGraph = () => {
             fetch(POLLS_URL + `/${getPollId}`)
             .then(resp => resp.json())
             .then(pollObj => {
-                addGraphToPollCard(graphNode, pollObj, event)
+                addGraphToPollCard(graphNode, pollObj, click)
                 
             })
             
@@ -41,18 +41,18 @@ const showGraph = () => {
     }
 }
 
-addGraphToPollCard = (canvasTag, pollObj) => {
+addGraphToPollCard = (canvasTag, pollObj, click) => {
 
     let dataOne = pollObj.options[0]
     let dataTwo = pollObj.options[1]
     
-    // if (dataOne + dataTwo === 0) {
-    //     if (vote) {
-    //         dataOne += 1
-    //     } else {
-    //         dataTwo += 1 
-    //     }
-    // }
+    if (dataOne + dataTwo === 0) {
+        if (click === 'one') { // get click
+            dataOne += 1
+        } else {
+            dataTwo += 1 
+        }
+    }
 
     let ctx = canvasTag
     ctx.style.width = '500px'
