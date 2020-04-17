@@ -16,8 +16,8 @@ const addGraphListener = () => {
 const showGraph = () => {
     if (event.target.dataset.vote){
         let getPollId = event.target.dataset.vote 
-        let graphNode = event.target.parentElement.parentElement.nextElementSibling         
-
+        let graphNode = event.target.parentElement.parentElement.nextElementSibling      
+        
         fetch(POLLS_URL + `/${getPollId}`)
         .then(resp => resp.json())
         .then(pollObj => {
@@ -30,30 +30,21 @@ const showGraph = () => {
 
         if (graphNode.className !== 'chartjs-render-monitor'){
             let getPollId = event.target.lastElementChild.dataset.vote    
+
             fetch(POLLS_URL + `/${getPollId}`)
             .then(resp => resp.json())
             .then(pollObj => {
-                addGraphToPollCard(graphNode, pollObj, click)
-                
+                addGraphToPollCard(graphNode, pollObj)
             })
-            
         }
     }
 }
 
-addGraphToPollCard = (canvasTag, pollObj, click) => {
+addGraphToPollCard = (canvasTag, pollObj) => {
 
     let dataOne = pollObj.options[0]
     let dataTwo = pollObj.options[1]
     
-    if (dataOne + dataTwo === 0) {
-        if (click === 'one') { // get click
-            dataOne += 1
-        } else {
-            dataTwo += 1 
-        }
-    }
-
     let ctx = canvasTag
     ctx.style.width = '500px'
     ctx.style.height = 'auto'
