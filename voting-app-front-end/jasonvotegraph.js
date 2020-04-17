@@ -33,7 +33,7 @@ const showGraph = () => {
         })
     }
     //this is causing errors because the disabled function cannot be called on some targets
-    if (event.target.lastElementChild.disabled){
+    if (event.target.lastElementChild && event.target.lastElementChild.disabled === true){
         let graphNode = event.target.parentElement.nextElementSibling
         let getPollId = event.target.lastElementChild.dataset.vote
 
