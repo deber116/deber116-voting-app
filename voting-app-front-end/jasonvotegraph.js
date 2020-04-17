@@ -10,38 +10,47 @@ const logOutFeature = () => {
 
 const addGraphListener = () => {
     document.addEventListener("click", showGraph);
-    //document.addEventListener("click", showGraph);
-    // let allPollCards = document.querySelectorAll("div.poll-card")
-    // console.log("i'm working")
-    // allPollCards.forEach(card => {
-    //     console.log(card)
-    //     card.addEventListener("mouseover", showGraph);
-    // })
+
 }
 
 const showGraph = () => {
-    
+
+
+
+
+
+
     if (event.target.dataset.vote){
-        
-        let graphNode = event.target.parentElement.parentElement.nextElementSibling 
         let getPollId = event.target.dataset.vote 
-        
+        let graphNode = event.target.parentElement.parentElement.nextElementSibling         
+
+
+
         fetch(POLLS_URL + `/${getPollId}`)
         .then(resp => resp.json())
         .then(pollObj => {
             addGraphToPollCard(graphNode, pollObj)
         })
     }
-    //this is causing errors because the disabled function cannot be called on some targets
+
     if (event.target.lastElementChild && event.target.lastElementChild.disabled === true){
         let graphNode = event.target.parentElement.nextElementSibling
-        let getPollId = event.target.lastElementChild.dataset.vote
 
-        fetch(POLLS_URL + `/${getPollId}`)
-        .then(resp => resp.json())
-        .then(pollObj => {
-            addGraphToPollCard(graphNode, pollObj)
-        })
+        if (graphNode.className !== 'chartjs-render-monitor'){
+
+            let getPollId = event.target.lastElementChild.dataset.vote
+    
+    
+            fetch(POLLS_URL + `/${getPollId}`)
+            .then(resp => resp.json())
+            .then(pollObj => {
+                addGraphToPollCard(graphNode, pollObj, event)
+                
+            })
+            
+        }
+
+
     }
 }
 
@@ -49,6 +58,14 @@ addGraphToPollCard = (canvasTag, pollObj) => {
 
     let dataOne = pollObj.options[0]
     let dataTwo = pollObj.options[1]
+    
+    // if (dataOne + dataTwo === 0) {
+    //     if (vote) {
+    //         dataOne += 1
+    //     } else {
+    //         dataTwo += 1 
+    //     }
+    // }
 
     let ctx = canvasTag
     ctx.style.width = '500px'

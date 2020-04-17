@@ -69,7 +69,6 @@ const createPollEventListener = () => {
             fetch(POLLS_URL, pollConfigObj)
             .then(resp => resp.json())
             .then(response => {
-                console.log(response)
                 createPollCard(response)
                 
                 pollContainer.style.display = 'none'
