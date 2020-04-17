@@ -71,13 +71,21 @@ const createPollEventListener = () => {
             .then(response => {
                 createPollCard(response)
                 pollContainer.style.display = 'none'
+
+                let allCanvasNodes = document.querySelectorAll('canvas')
+                allCanvasNodes.forEach(canvas => {
+                    console.log(canvas)
+                    canvas.className = ""
+                    canvas.style.backgroundColor = "#A0A0A0"                
+                })
             })
 
         } else {
             alert("You must sign in with your email to create a poll.")
         }
-
         event.target.reset();
+
+
     })
 }
 
@@ -154,6 +162,8 @@ const voteEventListener = () => {
                     voteButton.style.backgroundColor = "lightgreen"
                     allVoteButtons.forEach(button => {
                         button.disabled = true
+
+
                     })
 
                     let getPollId = event.target.dataset.vote 
@@ -199,8 +209,6 @@ const fetchUserVotes = (userObj) => {
                     greenButton.style.backgroundColor = "lightgreen"
                     allVoteButtons.forEach(button => {
                         button.disabled = true
-
-                        
                     })
                 }
             })        
@@ -271,6 +279,8 @@ const deleteEventListener = () => {
     })
 
 }
+
+
 
 const addHeaderEventListeners = () => {
     //find the button in the header

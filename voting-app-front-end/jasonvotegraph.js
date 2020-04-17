@@ -14,17 +14,6 @@ const addGraphListener = () => {
 }
 
 const showGraph = () => {
-    if (event.target.dataset.vote){
-        // let getPollId = event.target.dataset.vote 
-        // let graphNode = event.target.parentElement.parentElement.nextElementSibling      
-        
-        // fetch(POLLS_URL + `/${getPollId}`)
-        // .then(resp => resp.json())
-        // .then(pollObj => {
-        //     addGraphToPollCard(graphNode, pollObj)
-        // })
-    }
-
     if (event.target.lastElementChild && event.target.lastElementChild.disabled === true){
         let graphNode = event.target.parentElement.nextElementSibling
 
@@ -46,7 +35,7 @@ addGraphToPollCard = (canvasTag, pollObj) => {
     let dataTwo = pollObj.options[1]
     
     let ctx = canvasTag
-    ctx.style.width = '500px'
+    // ctx.style.width = '500px'
     ctx.style.height = 'auto'
     ctx.style.backgroundColor = 'white'
     new Chart(ctx, {
