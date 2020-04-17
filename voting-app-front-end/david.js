@@ -23,11 +23,13 @@ const mainNode = document.getElementById("main")
 
 const showCreatePollForm = () => {
     createPollBtn.addEventListener("click", () => {
-        addPoll = !addPoll;
-        if (addPoll) {
-            pollContainer.style.display = "block";
-        } else {
-            pollContainer.style.display = "none";
+        if (currentUser) {
+            addPoll = !addPoll;
+            if (addPoll) {
+                pollContainer.style.display = "block";
+            } else {
+                pollContainer.style.display = "none";
+            }
         }
     })
 }
