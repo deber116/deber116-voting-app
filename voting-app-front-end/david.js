@@ -75,8 +75,8 @@ const createPollEventListener = () => {
                 pollContainer.style.display = 'none'
 
 
-                alert('Please sign in to make your poll official!') // reloads page so graphs work
-                window.location.reload();
+                // alert('Please sign in to make your poll official!') // reloads page so graphs work
+                // window.location.reload();
 
 
             })
@@ -162,6 +162,15 @@ const voteEventListener = () => {
                     voteButton.style.backgroundColor = "lightgreen"
                     allVoteButtons.forEach(button => {
                         button.disabled = true
+                    })
+
+                    let getPollId = event.target.dataset.vote 
+                    let graphNode = event.target.parentElement.parentElement.nextElementSibling      
+                    
+                    fetch(POLLS_URL + `/${getPollId}`)
+                    .then(resp => resp.json())
+                    .then(pollObj => {
+                        addGraphToPollCard(graphNode, pollObj)
                     })
                 } 
                 
