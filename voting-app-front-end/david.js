@@ -69,7 +69,6 @@ const createPollEventListener = () => {
             fetch(POLLS_URL, pollConfigObj)
             .then(resp => resp.json())
             .then(response => {
-                console.log(response)
                 createPollCard(response)
                 
                 pollContainer.style.display = 'none'
@@ -193,8 +192,6 @@ const fetchUserVotes = (userObj) => {
                     allVoteButtons.forEach(button => {
                         button.disabled = true
                     })
-                    card.className += ' voted'
-
                 }
             })        
         }
