@@ -35,7 +35,7 @@ addGraphToPollCard = (canvasTag, pollObj) => {
     let dataTwo = pollObj.options[1]
     
     let ctx = canvasTag
-    // ctx.style.width = '500px'
+    ctx.style.width = '500px'
     ctx.style.height = 'auto'
     ctx.style.backgroundColor = 'white'
     new Chart(ctx, {
