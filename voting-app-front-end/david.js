@@ -192,8 +192,6 @@ const fetchUserVotes = (userObj) => {
                     allVoteButtons.forEach(button => {
                         button.disabled = true
                     })
-                    card.className += ' voted'
-
                 }
             })        
         }

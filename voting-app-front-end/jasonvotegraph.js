@@ -14,17 +14,9 @@ const addGraphListener = () => {
 }
 
 const showGraph = () => {
-
-
-
-
-
-
     if (event.target.dataset.vote){
         let getPollId = event.target.dataset.vote 
         let graphNode = event.target.parentElement.parentElement.nextElementSibling         
-
-
 
         fetch(POLLS_URL + `/${getPollId}`)
         .then(resp => resp.json())
@@ -37,10 +29,7 @@ const showGraph = () => {
         let graphNode = event.target.parentElement.nextElementSibling
 
         if (graphNode.className !== 'chartjs-render-monitor'){
-
-            let getPollId = event.target.lastElementChild.dataset.vote
-    
-    
+            let getPollId = event.target.lastElementChild.dataset.vote    
             fetch(POLLS_URL + `/${getPollId}`)
             .then(resp => resp.json())
             .then(pollObj => {
@@ -49,8 +38,6 @@ const showGraph = () => {
             })
             
         }
-
-
     }
 }
 
