@@ -71,12 +71,6 @@ const createPollEventListener = () => {
             .then(response => {
                 createPollCard(response)
                 pollContainer.style.display = 'none'
-
-
-                // alert('Please sign in to make your poll official!') // reloads page so graphs work
-                // window.location.reload();
-
-
             })
 
         } else {
@@ -106,7 +100,7 @@ const createPollCard = (pollObj) => {
                     <p id="option-two-votes">Votes: ${pollObj.options[1].numVotes}</p>
                     <button name="vote-button" data-vote=${pollObj.id} id=${pollObj.options[1].id} class="ui button">VOTE</button>
                 </div>
-                <button name="delete-button" data-user-id=${pollObj.user.id} data-poll-id=${pollObj.id} class="ui button" style="display: none;">DELETE</button>
+                <button name="delete-button" data-user-id=${pollObj.user.id} data-poll-id=${pollObj.id} class="ui button delete" style="display: none;">DELETE</button>
             </div>
             <canvas id="chart"></canvas>      
         </div>
@@ -205,6 +199,8 @@ const fetchUserVotes = (userObj) => {
                     greenButton.style.backgroundColor = "lightgreen"
                     allVoteButtons.forEach(button => {
                         button.disabled = true
+
+                        
                     })
                 }
             })        

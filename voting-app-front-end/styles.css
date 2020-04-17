@@ -59,3 +59,10 @@ div {
 #tagline {
     text-align: center;
 }
+
+.ui.button.delete {
+    color: white;
+    background-color: #ff726f;
+    margin: 0 auto; 
+    width: 100px;  
+}
