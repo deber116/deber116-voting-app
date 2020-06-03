@@ -20,7 +20,7 @@
 ```bash
 git clone git@github.com:deber116/deber116-voting-app.git
 ```
-2. cd into directory 'voting-app-back-end' repo directory and migrate database
+2. Cd into directory 'voting-app-back-end' repo directory and migrate database
 ```bash
 rails db:migrate
 ```
@@ -28,7 +28,7 @@ rails db:migrate
 ```bash
 rails server
 ```
-4. Open a new terminal tab and cd into 'voting-app-front-end' and open index.html
+4. Open a new terminal tab. Cd into 'voting-app-front-end' and open file 'index.html'
 ```bash
 open index.html
 ```
