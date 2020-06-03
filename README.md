@@ -34,8 +34,8 @@ open index.html
 ```
 ​​
 ## Authors
-<a href='https://github.com/deber116'> David Eber</a>
-<a href='https://github.com/cooljasonmelton'> Jason Melton</a>
+* <a href='https://github.com/deber116'> David Eber</a>
+* <a href='https://github.com/cooljasonmelton'> Jason Melton</a>
 
 ## Acknowledgments
 * Special thanks to Raza Jafri and Derek Castillo for all the help and guidance.
