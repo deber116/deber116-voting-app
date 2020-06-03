@@ -1,4 +1,4 @@
-# This or That
+# This Or That
 * A Javascript polling application that allows users to create two-option polls and vote on their created polls and the polls of other users.
 
 ![demo-of-app](https://github.com/deber116/deber116-voting-app/blob/master/voting-app-front-end/Animated%20GIF-downsized_large.gif?raw=true)​
